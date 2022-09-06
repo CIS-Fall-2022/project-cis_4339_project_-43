@@ -1,4 +1,5 @@
-# Data Platform Project Setup
+# Data Platform Project Setup2
+# Jonathan Euceda - This is an initial push to check whether pushes are working correctly.
 
 Requirements:
 
