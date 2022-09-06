@@ -20,6 +20,7 @@ mongoose
     console.log("Database connection Success!");
   })
   .catch((err) => {
+    console.log(process.env.MONGO_URL);
     console.error("Mongo Connection Error", err);
   });
 
