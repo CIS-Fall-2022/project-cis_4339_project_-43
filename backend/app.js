@@ -20,7 +20,6 @@ mongoose
     console.log("Database connection Success!");
   })
   .catch((err) => {
-    console.log(process.env.MONGO_URL);
     console.error("Mongo Connection Error", err);
   });
 
@@ -34,10 +33,12 @@ app.use(morgan("dev"));
 //import routes
 const primaryDataRoute  = require('./routes/primaryData');
 const eventsDataRoute  = require('./routes/eventsData');
+//const orgDataRoute = require('./routes/organizationData');
 
 //setup middle ware for routes
 app.use('/primaryData', primaryDataRoute);
 app.use('/eventData', eventsDataRoute)
+//app.use('/organizationData', orgDataRoute)
 
 app.listen(PORT, () => {
   console.log("Server started listening on port : ", PORT);
