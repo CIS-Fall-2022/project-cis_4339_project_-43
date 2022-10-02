@@ -97,11 +97,21 @@ let orgDataSchema = new Schema ({
     },
     orgAddress:
         {
-    city: { type: String },
-    county: { type: String },
-    line1: { type: String },
-    line2: { type: String },
-    zip: { type : String }
+            line1: {
+                type: String
+            },
+            line2: {
+                type: String,
+            },
+            city: {
+                type: String,
+            },
+            county: {
+                type: String,
+            },
+            zip: {
+                type: String,
+            }
         },
     orgContact:
         {
