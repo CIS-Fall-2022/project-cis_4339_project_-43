@@ -16,7 +16,7 @@ router.get("/", (req, res, next) => {
         }
     ).sort({ 'updatedAt': -1 }).limit(10);
 });
-
+/*
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => { 
     orgdata.find({ _id: req.params.id }, (error, data) => {
@@ -27,7 +27,7 @@ router.get("/id/:id", (req, res, next) => {
         }
     })
 });
-
+*/
 /*
 //GET entries based on search query
 //Ex: '...?eventName=Food&searchBy=name' 
@@ -80,7 +80,7 @@ router.post("/", (req, res, next) => {
         }
     );
 });
-
+/*
 //PUT
 router.put("/:id", (req, res, next) => {
     orgdata.findOneAndUpdate(
@@ -95,7 +95,7 @@ router.put("/:id", (req, res, next) => {
         }
     );
 });
-
+*/
 /*
 //PUT add attendee to event
 router.put("/addAttendee/:id", (req, res, next) => {
