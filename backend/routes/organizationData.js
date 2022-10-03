@@ -58,6 +58,18 @@ router.put("/:id", (req, res, next) => {
     );
 });
 
-
+router.delete("/delete/:id", (req, res, next) => {
+    orgdata.findByIdAndDelete( // finds the document based on the id given and deletes it from the database
+        { _id: req.params.id },
+        req.body,
+        (error, data) => {
+            if (error) {
+                return next(error);
+            } else {
+                res.json(data);
+            }
+        }
+    );
+});
 
 module.exports = router;
