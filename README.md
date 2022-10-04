@@ -1,19 +1,27 @@
-# Data Platform Project Setup2
-# Jonathan Euceda - This is an initial push to check whether pushes are working correctly.
+# Project 43 Data Project
 
-Requirements:
+# Members for this project are:
 
-This project uses NodeJS and MongoDB.
+Deandre Harrell
+Jonathan Euceda
+Luke Tran
 
-## Backend Node Application
-```
-cd backend
-```
-Follow instructions in backend README
+# Public Postman documentation of the API can be found below.
+https://documenter.getpostman.com/view/17246747/2s83zcTmvb
 
-## Frontend Vue 3 Application
-```
-cd frontend
-```
-Follow instructions in frontend README
+# Overview
+This project involves being able to manipulate data involving events, clients, and organizations. This involves being able to add data,
+update data, fetch data, and delete data through the project. 
 
+# Clients
+These are the people of the organization. Data include is names, addresses, and contact information. They can be assigned events that they will be attending.
+They are all assigned a unique identifier called _id.
+
+# Events
+These are events. Name of the event, location of the event, and type of event is provided. Attendees of the event must match with entries that are 
+found in the client data. Events are all assigned a unique identifier called _id.
+
+# Organizations
+These are the organizations that are viewing the database. Organization data is gathered, and each organization is given an ID.
+Through this ID, those viewing the frontend through that organization will only be able to see clients and events that have an
+OrgID that matches with the ID of the organization. 
