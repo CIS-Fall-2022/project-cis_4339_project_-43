@@ -55,11 +55,6 @@ router.get("/search/", (req, res, next) => {
     );
 });
 
-//GET events for a single client
-router.get("/events/:id", (req, res, next) => { 
-    
-});
-
 //POST
 router.post("/", (req, res, next) => { 
     primarydata.create( 

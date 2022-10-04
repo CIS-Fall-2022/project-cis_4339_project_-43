@@ -19,7 +19,7 @@ router.get("/", (req, res, next) => {
 
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => { 
-    orgdata.find({ _id: req.params.id }, (error, data) => {
+    orgdata.find({ id: req.params.id }, (error, data) => {
         if (error) {
             return next(error)
         } else {
@@ -46,7 +46,7 @@ router.post("/", (req, res, next) => {
 //PUT
 router.put("/:id", (req, res, next) => {
     orgdata.findOneAndUpdate(
-        { _id: req.params.id },
+        { id: req.params.id },
         req.body,
         (error, data) => {
             if (error) {
@@ -58,9 +58,10 @@ router.put("/:id", (req, res, next) => {
     );
 });
 
+//DELETE
 router.delete("/delete/:id", (req, res, next) => {
-    orgdata.findByIdAndDelete( // finds the document based on the id given and deletes it from the database
-        { _id: req.params.id },
+    orgdata.deleteOne( // finds the document based on the id given and deletes it from the database
+        { id: req.params.id },
         req.body,
         (error, data) => {
             if (error) {
