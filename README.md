@@ -1,13 +1,13 @@
-# Project 43 Data Project
+# Project 43 Data Manipulation Project
 
 # Members for this project are:
 
-Deandre Harrell
-Jonathan Euceda
-Luke Tran
+## Deandre Harrell
+## Jonathan Euceda
+## Luke Tran
 
 # Public Postman documentation of the API can be found below.
-https://documenter.getpostman.com/view/17246747/2s83zcTmvb
+https://documenter.getpostman.com/view/17246747/2s83zfS6CP
 
 # Overview
 This project involves being able to manipulate data involving events, clients, and organizations. This involves being able to add data,
