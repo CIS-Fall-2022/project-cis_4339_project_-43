@@ -89,7 +89,7 @@ router.put("/:id", (req, res, next) => {
             if (error) {
                 return next(error);
             } else {
-                res.send("Data succesfully changed!");
+                res.json(data);
             }
         }
     );
