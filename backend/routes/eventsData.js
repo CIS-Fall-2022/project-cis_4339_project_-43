@@ -89,7 +89,7 @@ router.put("/:id", (req, res, next) => {
             if (error) {
                 return next(error);
             } else {
-                res.json(data);
+                res.send("Data succesfully changed!");
             }
         }
     );
@@ -139,5 +139,29 @@ router.delete("/delete/:id", (req, res, next) => {
         }
     );
 });
+
+//last 2 months, attendees count, events with attendees
+//Find entries by last 2 months, count of attendees
+//Assistance via: https://www.mongodb.com/docs/manual/reference/operator/aggregation/size/
+//via: https://stackoverflow.com/questions/24348437/mongoose-select-a-specific-field-with-find
+const subtracteddate = new Date();
+subtracteddate.setMonth(subtracteddate.getMonth() - 2);
+router.get("/graphdata", (req, res, next) => { 
+    eventdata.find( 
+        { attendees: {$exists: true}, date: {$gte: subtracteddate }},
+        (error, data) => { 
+            if (error) {
+                return next(error);
+            } else {
+                res.json(data);
+            }
+        }
+    ).select(
+        {
+            eventName: 1,
+            attendees: {$size: "$attendees"},
+            _id: 0,
+        });
+  })
 
 module.exports = router;

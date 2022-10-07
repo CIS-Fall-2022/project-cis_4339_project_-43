@@ -81,7 +81,7 @@ router.put("/:id", (req, res, next) => {
             if (error) {
                 return next(error);
             } else {
-                res.json(data);
+                res.send("Data succesfully changed.");
             }
         }
     );
@@ -96,7 +96,7 @@ router.delete("/delete/:id", (req, res, next) => {
             if (error) {
                 return next(error);
             } else {
-                res.json(data);
+                res.send("Data succesfully deleted.");
             }
         }
     );    
