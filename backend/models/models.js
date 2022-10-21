@@ -1,11 +1,13 @@
 const uuid = require('uuid');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+require("dotenv").config();   
+const organization_ID = process.env.Organization;
 
 //collection for intakeData
 let primaryDataSchema = new Schema({
     _id: { type: String, default: uuid.v1 },
-    orgID: { type: String},
+    orgID: { type: String, default: organization_ID},
     firstName: {
         type: String,
         require: true
@@ -50,7 +52,7 @@ let primaryDataSchema = new Schema({
 //collection for eventData
 let eventDataSchema = new Schema({
     _id: { type: String, default: uuid.v1 },
-    orgID: { type: String},
+    orgID: { type: String, default: organization_ID},
     eventName: {
         type: String,
         require: true

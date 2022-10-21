@@ -1,12 +1,14 @@
 const express = require("express");
 const router = express.Router();
-
+require("dotenv").config();   
+const organization_ID = process.env.Organization;
 //importing data model schemas
 let { eventdata } = require("../models/models"); 
 
 //GET all entries
 router.get("/", (req, res, next) => { 
     eventdata.find( 
+        { orgID: organization_ID },
         (error, data) => {
             if (error) {
                 return next(error);
@@ -19,13 +21,16 @@ router.get("/", (req, res, next) => {
 
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => { 
-    eventdata.find({ _id: req.params.id }, (error, data) => {
-        if (error) {
-            return next(error)
-        } else {
-            res.json(data)
-        }
-    })
+    eventdata.find(
+        { orgID: organization_ID,
+        _id: req.params.id }, 
+        (error, data) => {
+            if (error) {
+                return next(error)
+            } else {
+                res.json(data)
+            }
+        })
 });
 
 //GET entries based on search query
@@ -33,15 +38,15 @@ router.get("/id/:id", (req, res, next) => {
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
-        dbQuery = { eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" } }
+        dbQuery = { orgID: organization_ID, eventName: { $regex: `^${req.query["eventName"]}`, $options: "i" } }
     } else if (req.query["searchBy"] === 'date') {
         dbQuery = {
-            date:  req.query["date"]
-
+            orgID: organization_ID,
+            date: req.query["date"]
         }
     };
     eventdata.find( 
-        dbQuery, 
+        dbQuery,
         (error, data) => { 
             if (error) {
                 return next(error);
@@ -55,7 +60,8 @@ router.get("/search/", (req, res, next) => {
 //GET events for which a client is signed up
 router.get("/client/:id", (req, res, next) => { 
     eventdata.find( 
-        { attendees: req.params.id }, 
+        { orgID: organization_ID,
+        attendees: req.params.id }, 
         (error, data) => { 
             if (error) {
                 return next(error);
@@ -83,7 +89,8 @@ router.post("/", (req, res, next) => {
 //PUT
 router.put("/:id", (req, res, next) => {
     eventdata.findOneAndUpdate(
-        { _id: req.params.id },
+        { orgID: organization_ID,
+        _id: req.params.id },
         req.body,
         (error, data) => {
             if (error) {
@@ -99,14 +106,15 @@ router.put("/:id", (req, res, next) => {
 router.put("/addAttendee/:id", (req, res, next) => {
     //only add attendee if not yet signed uo
     eventdata.find( 
-        { _id: req.params.id, attendees: req.body.attendee }, 
+        { orgID: organization_ID, _id: req.params.id, attendees: req.body.attendee }, 
         (error, data) => { 
             if (error) {
                 return next(error);
             } else {
                 if (data.length == 0) {
                     eventdata.updateOne(
-                        { _id: req.params.id }, 
+                        { orgID: organization_ID,
+                        _id: req.params.id }, 
                         { $push: { attendees: req.body.attendee } },
                         (error, data) => {
                             if (error) {
@@ -127,9 +135,9 @@ router.put("/addAttendee/:id", (req, res, next) => {
 
 // delete event by id
 router.delete("/delete/:id", (req, res, next) => {
-    eventdata.findByIdAndDelete( // finds the document based on the id given and deletes it from the database
-        { _id: req.params.id },
-        req.body,
+    eventdata.deleteOne( // finds the document based on the id given and deletes it from the database
+        { orgID: organization_ID,
+        _id: req.params.id },
         (error, data) => {
             if (error) {
                 return next(error);
@@ -148,7 +156,7 @@ const subtracteddate = new Date();
 subtracteddate.setMonth(subtracteddate.getMonth() - 2);
 router.get("/graphdata", (req, res, next) => { 
     eventdata.find( 
-        { attendees: {$exists: true}, date: {$gte: subtracteddate }},
+        { attendees: {$exists: true}, date: {$gte: subtracteddate }, orgID: organization_ID },
         (error, data) => { 
             if (error) {
                 return next(error);

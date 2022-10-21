@@ -1,6 +1,7 @@
 const express = require("express"); 
 const router = express.Router(); 
-
+require("dotenv").config();   
+const organization_ID = process.env.Organization;
 //importing data model schemas
 let { primarydata } = require("../models/models"); 
 let { eventdata } = require("../models/models"); 
@@ -8,6 +9,7 @@ let { eventdata } = require("../models/models");
 //GET all entries
 router.get("/", (req, res, next) => { 
     primarydata.find( 
+        { orgID: organization_ID },
         (error, data) => {
             if (error) {
                 return next(error);
@@ -21,7 +23,8 @@ router.get("/", (req, res, next) => {
 //GET single entry by ID
 router.get("/id/:id", (req, res, next) => {
     primarydata.find( 
-        { _id: req.params.id }, 
+        { orgID: organization_ID,
+        _id: req.params.id }, 
         (error, data) => {
             if (error) {
                 return next(error);
@@ -44,7 +47,8 @@ router.get("/search/", (req, res, next) => {
         }
     };
     primarydata.find( 
-        dbQuery, 
+        { orgID: organization_ID,
+        dbQuery },
         (error, data) => { 
             if (error) {
                 return next(error);
@@ -75,7 +79,8 @@ router.post("/", (req, res, next) => {
 //PUT update (make sure req body doesn't have the id)
 router.put("/:id", (req, res, next) => { 
     primarydata.findOneAndUpdate( 
-        { _id: req.params.id }, 
+        { orgID: organization_ID,
+        _id: req.params.id }, 
         req.body,
         (error, data) => {
             if (error) {
@@ -88,10 +93,11 @@ router.put("/:id", (req, res, next) => {
 });
 
 // DELETE by id
+// Jonathan Euceda: FIXED as of 3:33PM
 router.delete("/delete/:id", (req, res, next) => {
-    primarydata.findByIdAndDelete( // finds the document based on the id given and deletes it from the database
-        { _id: req.params.id }, 
-        req.body, 
+    primarydata.deleteOne( // finds the document based on the id given and deletes it from the database
+        { orgID: organization_ID, 
+        _id: req.params.id }, 
         (error, data) => {
             if (error) {
                 return next(error);

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-
+require("dotenv").config();   
+const organization_ID = process.env.Organization;
 //importing data model schemas
 let { orgdata } = require("../models/models"); 
 
