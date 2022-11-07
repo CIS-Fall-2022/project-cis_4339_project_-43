@@ -40,15 +40,15 @@ router.get("/id/:id", (req, res, next) => {
 router.get("/search/", (req, res, next) => { 
     let dbQuery = "";
     if (req.query["searchBy"] === 'name') {
-        dbQuery = { firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" } }
+        dbQuery = { orgID: organization_ID, firstName: { $regex: `^${req.query["firstName"]}`, $options: "i" }, lastName: { $regex: `^${req.query["lastName"]}`, $options: "i" } }
     } else if (req.query["searchBy"] === 'number') {
         dbQuery = {
+            orgID: organization_ID,
             "phoneNumbers.primaryPhone": { $regex: `^${req.query["phoneNumbers.primaryPhone"]}`, $options: "i" }
         }
     };
     primarydata.find( 
-        { orgID: organization_ID,
-        dbQuery },
+        dbQuery,
         (error, data) => { 
             if (error) {
                 return next(error);
