@@ -1,3 +1,13 @@
+<style>
+table,
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+</style>
+
 <template>
   <main>
     <div>
@@ -11,6 +21,16 @@
               style="margin-left: 75px; margin-right: 75px; margin-bottom: 75px;"
             ></EventChart>
       </div>
+      <table style="margin-left: auto; margin-right: auto;">
+        <tr>
+          <th> Event Name </th>
+          <th> # of Attendees </th>
+        </tr>
+        <tr v-for="event in tableData">
+          <td> {{event.eventName}} </td>
+          <td> {{event.attendees}} </td>
+        </tr>
+      </table> 
     </div>
   </main>
 </template>
@@ -29,6 +49,8 @@ export default {
       attendees: [],
       loading: false,
       error: null,
+      orgName: [],
+      tableData: [],
     };
   },
   methods: {
@@ -41,6 +63,7 @@ export default {
         //"re-organizing" - mapping json from the response
         this.labels = response.data.map((item) => item.eventName);
         this.attendees = response.data.map((item) => item.attendees);
+        this.tableData = response.data
       } catch (err) {
         if (err.response) {
           // client received an error response (5xx, 4xx)
