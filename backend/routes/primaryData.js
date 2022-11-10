@@ -90,6 +90,7 @@ router.put("/:id", (req, res, next) => {
             }
         }
     );
+    
 });
 
 // DELETE by id
@@ -97,15 +98,30 @@ router.put("/:id", (req, res, next) => {
 router.delete("/delete/:id", (req, res, next) => {
     primarydata.deleteOne( // finds the document based on the id given and deletes it from the database
         { orgID: organization_ID, 
-        _id: req.params.id }, 
+        _id: req.params.id },
+        (error, data) => {
+            if (error) {
+                return next(error);
+            } else {
+                console.log(data);
+            }
+        }
+    );
+    eventdata.updateMany({},
+        {
+            $pull: {
+                attendees: req.params.id
+            }
+        },
         (error, data) => {
             if (error) {
                 return next(error);
             } else {
                 res.json(data);
+                console.log(data);
             }
         }
-    );    
+    );
 });
 
 module.exports = router;
