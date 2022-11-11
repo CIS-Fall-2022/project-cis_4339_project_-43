@@ -28,7 +28,7 @@ table,
         </tr>
         <tr v-for="event in tableData">
           <td> {{event.eventName}} </td>
-          <td> {{event.attendees}} </td>
+          <td> {{event.attendees[0]}} </td>
         </tr>
       </table> 
     </div>
