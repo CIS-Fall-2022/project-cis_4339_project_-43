@@ -74,4 +74,14 @@ router.delete("/delete/:id", (req, res, next) => {
     );
 });
 
+//GET single entry by ID
+router.get("/orgid/:id", (req, res, next) => { 
+    orgdata.find({ id: organization_ID }, (error, data) => {
+        if (error) {
+            return next(error)
+        } else {
+            res.json(data)
+        }
+    })
+});
 module.exports = router;

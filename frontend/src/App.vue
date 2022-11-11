@@ -44,11 +44,8 @@
     <div class="grow w-4/5">
       <section
         class="justify-end items-center h-24 flex"
-        style="
-          background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%);
-        "
-      >
-        <h1 class="mr-20 text-3xl text-white">{{orgData.id}}</h1>
+        style="background: linear-gradient(250deg, #C8102E 70%, #efecec 50.6%);">
+        <h1 class="mr-20 text-3xl text-white">{{orgData.join()}}</h1>
       </section>
       <div>
         <router-view></router-view>
@@ -74,10 +71,10 @@ export default {
       try {
         this.error = null;
         this.loading = true;
-        const url = `http://localhost:3000/organizationData/`;
+        const url = `http://localhost:3000/organizationData/id/1`;
         const response = await axios.get(url);
         //"re-organizing" - mapping json from the response
-        this.orgData = response.data
+        this.orgData = response.data.map((item) => item.orgName);
       } catch (err) {
         if (err.response) {
           // client received an error response (5xx, 4xx)
