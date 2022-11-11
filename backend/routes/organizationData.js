@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 require("dotenv").config();   
-const organization_ID = process.env.Organization;
+const organization_ID = process.env.ORGANIZATION;
 //importing data model schemas
 let { orgdata } = require("../models/models"); 
 
@@ -74,14 +74,20 @@ router.delete("/delete/:id", (req, res, next) => {
     );
 });
 
-//GET single entry by ID
-router.get("/orgid/:id", (req, res, next) => { 
-    orgdata.find({ id: organization_ID }, (error, data) => {
+
+//GET org data based on org env
+router.get("/orgid", (req, res, next) => { 
+    orgdata.findOne({ id: organization_ID }, (error, data) => {
         if (error) {
             return next(error)
         } else {
             res.json(data)
         }
+    }).select({
+        orgName: 1,
+        _id: 0
     })
+    
 });
+
 module.exports = router;
