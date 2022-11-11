@@ -147,6 +147,21 @@ router.delete("/delete/:id", (req, res, next) => {
         }
     );
 });
+// This will pull an element from the attendees array
+router.put("/removeAttendee/:event/:id", (req, res, next) => {
+    eventdata.updateOne( 
+        { orgID: organization_ID,
+        _id: req.params.event },
+        { $pull: { attendees: req.params.id } },
+        (error, data) => {
+            if (error) {
+                return next(error);
+            } else {
+                res.json(data);
+            }
+        }
+    );
+});
 
 //last 2 months, attendees count, events with attendees
 //Find entries by last 2 months, count of attendees

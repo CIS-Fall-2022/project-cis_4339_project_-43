@@ -105,8 +105,8 @@ export default {
       });
     },
     handleClientDelete() {
-      let apiURL = import.meta.env.VITE_ROOT_API + `/primarydata/${this.id}`;
-      axios.put(apiURL, this.client).then(() => {
+      let apiURL = import.meta.env.VITE_ROOT_API + `/primaryData/delete/${this.id}`;
+      axios.delete(apiURL, this.client).then(() => {
         alert("Client has been deleted.");
         this.$router.back().catch((error) => {
           console.log(error);
@@ -117,6 +117,29 @@ export default {
       this.eventsChosen.forEach((event) => {
         let apiURL =
           import.meta.env.VITE_ROOT_API + `/eventdata/addAttendee/` + event._id;
+        axios.put(apiURL, { attendee: this.$route.params.id }).then(() => {
+          this.clientEvents = [];
+          axios
+            .get(
+              import.meta.env.VITE_ROOT_API +
+                `/eventdata/client/${this.$route.params.id}`
+            )
+            .then((resp) => {
+              let data = resp.data;
+              for (let i = 0; i < data.length; i++) {
+                this.clientEvents.push({
+                  eventName: data[i].eventName,
+                });
+              }
+            });
+        });
+      });
+    },
+    DeleteToEvent() {
+      this.eventsChosen.forEach((event) => {
+        console.log(this.id)
+        let apiURL =
+          import.meta.env.VITE_ROOT_API + `/eventdata/removeAttendee/` + event._id + '/' + this.id;
         axios.put(apiURL, { attendee: this.$route.params.id }).then(() => {
           this.clientEvents = [];
           axios
@@ -395,6 +418,13 @@ export default {
                 type="submit"
                 class="mt-5 bg-red-700 text-white rounded"
               >Add Client to Events</button>
+            </div>
+            <div class="flex justify-between">
+              <button
+                @click="DeleteToEvent"
+                type="submit"
+                class="mt-5 bg-red-700 text-white rounded"
+              >Remove Client from Events</button>
             </div>
           </div>
         </div>
