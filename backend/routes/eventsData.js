@@ -111,20 +111,24 @@ router.put("/addAttendee/:id", (req, res, next) => {
             if (error) {
                 return next(error);
             } else {
-                if (data.length == 0) {
+                if (data.length ) {
                     eventdata.updateOne(
                         { orgID: organization_ID,
                         _id: req.params.id }, 
                         { $push: { attendees: req.body.attendee } },
                         (error, data) => {
                             if (error) {
-                                consol
-                                return next(error);
-                            } else {
+                                console.log(error);
+                            } else if (data.acknowledged == "false") {
+                                console.log("already signed up")
+                            }
+                             else {
                                 res.json(data);
                             }
                         }
                     );
+                }else{
+                    res.status(400).send("already signed up")
                 }
                 
             }

@@ -117,7 +117,8 @@ export default {
       this.eventsChosen.forEach((event) => {
         let apiURL =
           import.meta.env.VITE_ROOT_API + `/eventdata/addAttendee/` + event._id;
-        axios.put(apiURL, { attendee: this.$route.params.id }).then(() => {
+        axios.put(apiURL, { attendee: this.$route.params.id }).then((resp) => {
+          console.log(resp.data)
           this.clientEvents = [];
           axios
             .get(
@@ -125,6 +126,7 @@ export default {
                 `/eventdata/client/${this.$route.params.id}`
             )
             .then((resp) => {
+              console.log(resp)
               let data = resp.data;
               for (let i = 0; i < data.length; i++) {
                 this.clientEvents.push({
@@ -132,7 +134,7 @@ export default {
                 });
               }
             });
-        });
+        })
       });
     },
     DeleteToEvent() {
