@@ -88,14 +88,14 @@ router.post("/", (req, res, next) => {
 
 //PUT
 router.put("/:id", (req, res, next) => {
-    eventdata.findOneAndUpdate(
-        { orgID: organization_ID,
-        _id: req.params.id },
+    eventdata.findOneAndUpdate({
+        _id: req.params.id},
         req.body,
         (error, data) => {
             if (error) {
                 return next(error);
             } else {
+                console.log(req.body);
                 res.json(data);
             }
         }

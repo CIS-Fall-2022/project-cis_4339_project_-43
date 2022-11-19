@@ -219,7 +219,7 @@ export default {
           county: "",
           zip: "",
         },
-        description: "",
+        description: '',
       },
     };
   },
@@ -247,7 +247,7 @@ export default {
                 county: "",
                 zip: "",
               },
-              description: "",
+              description: '',
             };
             this.checkedServices = [];
           })
