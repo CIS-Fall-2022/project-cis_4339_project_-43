@@ -9,6 +9,10 @@
 # Public Postman documentation of the API can be found below.
 https://documenter.getpostman.com/view/17246747/2s83zfS6CP
 
+# Important
+For this project to work, there must be an .ENV file in both the backend and the frontend. The .ENV file of the backend requires two fields: MONGO_URL and ORGANIZATION.
+For ORGANIZATION, you place a number that matches with the organization ID of an organization in the backend. (Use Postman to add an organization with an OrgID of 1.) MONGO_URL is the connection string for your local mongoDB. (This will likely be mongodb://127.0.0.1:27017/CIS4339).
+
 # Overview
 This project involves being able to manipulate data involving events, clients, and organizations. This involves being able to add data,
 update data, fetch data, and delete data through the project. 
